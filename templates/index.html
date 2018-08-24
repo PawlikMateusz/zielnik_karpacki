@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Strona główna{% endblock %}
+
+{% block head %}
+
+    <style type="text/css">
+      #pagecontent{
+        width: 80%;
+      }
+      .zoom {
+          transition: transform .2s; /* Animation */
+      }
+      .zoom:hover {
+          transform: scale(1.04); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+      #podpisZdjecia{
+          text-align: center;
+      }
+      .isDisabled {
+          color: currentColor;
+          cursor: not-allowed;
+          opacity: 0.5;
+          text-decoration: none;
+      }
+      a:link {
+          text-decoration: none;
+          color:black;
+}
+
+    </style>
+
+
+{% endblock %}
+
+
+{% block body_block %}
+
+<div class="container" id="pagecontent">
+  <div class="jumbotron">
+
+            <h2>Witaj na mojej stronie!</h2> <br>
+            <p style="text-indent: 20px;">
+              <i>Strona miała być właściwie tylko atlasem roślin występujących w polskich i słowackich Karpatach - stąd jej nazwa. I jest on oczywiście nadal jej podstawą, mimo, że strona w pewnym momencie zaczęła się rozrastać i ciągle pojawia się na niej, poza nowymi gatunkami roślin, coś nowego – jest więc trochę o Karpatach, o ochronie przyrody, o zwierzętach, są zamieszczane zdjęcia ze spacerów i wycieczek – ale wszystkie informacje i zdjęcia zamieszczane na stronie dotyczą przyrody Karpat.
+              </i
+            </p>  <br> <br>
+            <h4>Ostatnio dodane rośliny</h4>
+              <div class="row">
+                {% for roslina in rosliny %}
+
+                      <div class="col-lg-4">
+
+
+                          <a href="basic_app/widokRosliny/{{ roslina.id_rosliny }}/">
+                            {% for zdjecie in roslina.images.all %}
+                            {% if zdjecie.zdjecie_glowne == 'y' %}
+                                  <img src="{{ zdjecie.image.url }}" alt="brak zdjecia" class="img-thumbnail zoom">
+                            {% endif %}
+                            {% endfor %}
+                                <h6 id="podpisZdjecia">{{ roslina.nazwa_polska }}</h6>
+                          </a>
+                      </div>
+                {% endfor %}
+              </div>
+
+              </div>
+
+
+
+  </div>
+</div>
+{% endblock %}

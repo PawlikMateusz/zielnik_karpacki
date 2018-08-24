@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+{% block head %}
+  <style media="screen">
+    .galeria{
+      text-align: center;
+    }
+    .zoom {
+      transition: transform .2s; /* Animation */
+    }
+    .zoom:hover {
+      transform: scale(1.04); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+          }
+    .noactive{
+      color:black;
+      text-decoration: none;
+    }
+  </style>
+{% endblock %}
+
+  <div class="jumbotron">
+      <p>
+        <h1>
+          {% if rosliny %}
+          {{rosliny.last.get_kategoria_display}}
+          {% else %}
+          <h2>Aktualnie brak roślin do wyświetlenia</h2>
+          {% endif %}
+
+        </h1>
+    </p>
+        {% if rosliny %}
+            <div class="row">
+            {% for ros in rosliny %}
+
+
+                  {% for zdjecie in ros.images.all %}
+                  {% if zdjecie.zdjecie_glowne == 'y' %}
+
+                    <div class="col-lg-3 galeria">
+                      <a href="widokRosliny/{{ ros.id_rosliny }}/">
+                        <img src="{{ zdjecie.image.url }}" alt="brak zdjecia" class="img-thumbnail zoom">
+                        <p class="noactive"><strong>{{ zdjecie.nazwa_polska }}</strong></p>
+                    </a>
+                    </div>
+
+                        {% endif %}
+                  {% endfor %}
+
+            {% endfor %}
+          </div>
+        {% endif %}
+
+  </div>
+
+{% endblock %}

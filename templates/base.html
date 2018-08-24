@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <title>{% block title %}
+
+            {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% block head %}
+
+    {% endblock %}
+  </head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+          <a href="{% url 'index' %}" class="navbar-left logo"><img id="logo" src="{% static "webimages/logo.png" %}"></a>
+          <a class="navbar-brand" href="{% url 'index' %}"><b>  Zielnik Karpacki</b></a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'index' %}">Strona główna</a>
+                </li>
+                <li class="dropdown nav-item">
+                      <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Atlas roślin
+                    </a>
+                      <ul class="dropdown-menu">
+                        <li nav-item><a href="{% url 'basic_app:atlasDrzewa' %}" class="nav-link">Drzewa Krzewy Krzewinki</a></li>
+                        <li nav-item><a href="{% url 'basic_app:atlasPaprotniki' %}" class="nav-link">Paprotniki</a></li>
+                        <li nav-item><a href="{% url 'basic_app:atlasTrawy' %}" class="nav-link">Turzycowate Trawy</a></li>
+                        <li nav-item><a href="{% url 'basic_app:atlasBiale' %}" class="nav-link">Zielne - Kwiaty białe</a></li>
+                        <li nav-item><a href="{% url 'basic_app:atlasZolte' %}" class="nav-link">Zielne - Kwiaty żółte</a></li>
+                        <li nav-item><a href="{% url 'basic_app:atlasCzerwone' %}" class="nav-link">Zielne - Kwiaty czerwone</a></li>
+                      </ul>
+                </li>
+                <li class="dropdown nav-item">
+                      <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Indeksy
+                    </a>
+                      <ul class="dropdown-menu">
+                        <li nav-item><a href="{% url 'basic_app:indeksPolski' %}" class="nav-link">Indeksy polskie</a></li>
+                        <li nav-item><a href="{% url 'basic_app:indeksLacinski' %}" class="nav-link">Indeksy łacińskie</a></li>
+                      </ul>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'admin:index' %}">Admin page</a>
+                </li>
+
+
+              </ul>
+
+            </div>
+</nav>
+
+        <div class="container" id="pagebox">
+          {% block body_block %}
+
+          {% endblock %}
+        </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

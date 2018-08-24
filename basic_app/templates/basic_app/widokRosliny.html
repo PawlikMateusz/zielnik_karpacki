@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+
+    <style type="text/css">
+      #pagecontent{
+        width: 90%;}
+      .zdjecia{
+        margin: 30px 15px 0px 0px;
+      }
+      .glowne{
+        float:right;
+        width: 300px;
+        height:auto;
+        margin: 0px 0px 10px 30px;
+      }
+      .opis{
+        text-align: justify;
+      }
+
+    </style>
+
+
+
+{% endblock %}
+
+
+
+
+{% block body_block %}
+
+<div class="container" id="pagecontent">
+  <div class="jumbotron">
+
+        {% if roslina %}
+            {% for ros in roslina %}
+
+                    <h2> {{ ros.nazwa_polska }}</h2>  <br>
+                    <h5>Łacińska nazwa: {{ ros.nazwa_lacinska }}</h5>  <br>
+                        {% for zdjecie in ros.images.all %}
+                        {% if zdjecie.zdjecie_glowne == 'y' %}
+                              <img src="{{ zdjecie.image.url }}" alt="brak zdjecia" class="img-thumbnail glowne">
+                        {% endif %}
+                        {% endfor %}
+                  <p style="text-indent: 40px;" class="opis">  {{ ros.opis }} <br> </p>
+                  <h5>Cechy:</h6> <br>
+                  {% if ros.rodzina %}
+                  <p><strong>Rodzina:</strong> {{ ros.get_rodzina_display }}</p>
+                  {% endif %}
+
+                  {% if ros.wystepowanie %}
+                  <p><strong>Występowanie:</strong> {{ ros.wystepowanie }}</p>
+                  {% endif %}
+                  {% if ros.pietro_roslinnosci  %}
+                  <p><strong>Piętro roślinności:</strong> {{ros.get_pietro_roslinnosci_display}} </p>
+                  {% endif %}
+                  {% if ros.kolor_kwiatow  %}
+                  <p><strong>Kolor kwiatów:</strong> {{ros.get_kolor_kwiatow_display}} </p>
+                  {% endif %}
+
+                  <p><strong>Dodatkowe informacje:</strong>
+                    <ul>
+                        {% if ros.chronione == 'y' %}<li>chronione</li>{% endif %}
+                        {% if ros.endemity == 'y' %}<li>endemity</li>{% endif %}
+                        {% if ros.lecznicze == 'y' %}<li>lecznicze</li>{% endif %}
+                        {% if ros.trujace == 'y' %}<li>trujace</li>{% endif %}
+                        {% if ros.pasozytnicze == 'y' %}<li>pasożytnicze</li>{% endif %}
+                        {% if ros.owadozerne == 'y' %}<li>owadożerne</li>{% endif %}
+
+                    </ul>
+                  </p>
+
+
+                  <div class="row">
+                            {% for zdjecie in ros.images.all %}
+                                <div class="col-lg-4">
+                                  <img src="{{ zdjecie.image.url }}" alt="brak zdjecia" class="img-thumbnail zdjecia">
+                                </div>
+                            {% endfor %}
+                  </div>
+            {% endfor %}
+        {% endif %}
+
+  </div>
+</div>
+
+
+{% endblock %}
